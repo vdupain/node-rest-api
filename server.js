@@ -6,15 +6,16 @@ var express    = require('express');
 var bodyParser = require('body-parser');
 var app        = express();
 
-// configure app
+// configure app to use bodyParser()
+// this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var port     = process.env.PORT || 8080; // set our port
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o'); // connect to our database
-var Bear     = require('./app/models/bear');
+mongoose.connect('mongodb://192.168.59.103:27017/'); // connect to our database
+var Item     = require('./app/models/item');
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -31,75 +32,75 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-	res.json({ message: 'hooray! welcome to our api!' });	
+	res.json({ message: 'Welcome to our Item API!' });
 });
 
-// on routes that end in /bears
+// on routes that end in /items
 // ----------------------------------------------------
-router.route('/bears')
+router.route('/items')
 
-	// create a bear (accessed at POST http://localhost:8080/bears)
+	// create a item (accessed at POST http://localhost:8080/items)
 	.post(function(req, res) {
 		
-		var bear = new Bear();		// create a new instance of the Bear model
-		bear.name = req.body.name;  // set the bears name (comes from the request)
+		var item = new Item();		// create a new instance of the Item model
+		item.name = req.body.name;  // set the items name (comes from the request)
 
-		bear.save(function(err) {
+		item.save(function(err) {
 			if (err)
 				res.send(err);
 
-			res.json({ message: 'Bear created!' });
+			res.json({ message: 'Item created!'});
 		});
 
 		
 	})
 
-	// get all the bears (accessed at GET http://localhost:8080/api/bears)
+	// get all the items (accessed at GET http://localhost:8080/api/items)
 	.get(function(req, res) {
-		Bear.find(function(err, bears) {
+		Item.find(function(err, items) {
 			if (err)
 				res.send(err);
 
-			res.json(bears);
+			res.json(items);
 		});
 	});
 
-// on routes that end in /bears/:bear_id
+// on routes that end in /items/:item_id
 // ----------------------------------------------------
-router.route('/bears/:bear_id')
+router.route('/items/:item_id')
 
-	// get the bear with that id
+	// get the item with that id
 	.get(function(req, res) {
-		Bear.findById(req.params.bear_id, function(err, bear) {
+		Item.findById(req.params.item_id, function(err, item) {
 			if (err)
 				res.send(err);
-			res.json(bear);
+			res.json(item);
 		});
 	})
 
-	// update the bear with this id
+	// update the item with this id
 	.put(function(req, res) {
-		Bear.findById(req.params.bear_id, function(err, bear) {
+		Item.findById(req.params.item_id, function(err, item) {
 
 			if (err)
 				res.send(err);
 
-			bear.name = req.body.name;
-			bear.save(function(err) {
+			item.name = req.body.name;
+			item.save(function(err) {
 				if (err)
 					res.send(err);
 
-				res.json({ message: 'Bear updated!' });
+				res.json({ message: 'Item updated!' });
 			});
 
 		});
 	})
 
-	// delete the bear with this id
+	// delete the item with this id
 	.delete(function(req, res) {
-		Bear.remove({
-			_id: req.params.bear_id
-		}, function(err, bear) {
+		Item.remove({
+			_id: req.params.item_id
+		}, function(err, item) {
 			if (err)
 				res.send(err);
 
@@ -114,4 +115,4 @@ app.use('/api', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Listening on port %d in %s mode', port, app.settings.env);

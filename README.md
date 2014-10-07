@@ -6,13 +6,11 @@ Using the new Express 4.0 Router to build an API
 
 ## Requirements
 
-- Node and npm
+- docker, node and npm
 
 ## Installation
 
-- Clone the repo: `git clone git@github.com:scotch-io/node-api`
+- Clone the repo: `git clone git@github.com:vdupain/node-api`
 - Install dependencies: `npm install`
+- Start mongodb: `docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb`
 - Start the server: `node server.js`
-
-## Testing the API
-Test your API using [Postman](https://chrome.google.com/webstore/detail/postman-rest-client-packa/fhbjgbiflinjbdggehcddcbncdddomop)
