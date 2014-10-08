@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://192.168.59.103:27017/');
+var mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/";
+mongoose.connect(mongodbUri);
 var Geonames = require('./app/models/geonames');
 var gstream = require('geonames-stream');
 var request = require('request');
