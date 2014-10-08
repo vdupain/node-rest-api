@@ -14,7 +14,8 @@ app.use(bodyParser.json());
 var port     = process.env.PORT || 8080; // set our port
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://192.168.59.103:27017/'); // connect to our database
+var mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/";
+mongoose.connect(mongodbUri); // connect to our database
 var Item     = require('./app/models/item');
 
 // ROUTES FOR OUR API

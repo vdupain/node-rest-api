@@ -16,7 +16,6 @@ var port = process.env.PORT || 8080; // set our port
 
 var mongoose = require('mongoose');
 var mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/";
-
 mongoose.connect(mongodbUri); // connect to our database
 var Geonames = require('./app/models/geonames');
 
@@ -43,7 +42,9 @@ router.route('/geonames')
 
     // get all the geonames (accessed at GET http://localhost:8080/api/geonames)
     .get(function (req, res) {
-            Geonames.paginate({}, 2, 10, function(err, pageCount, paginatedResults, itemCount)   {
+        var page = req.param('page') || 1
+        var limit = req.param('limit') || 10
+            Geonames.paginate({}, limit, page, function(err, pageCount, paginatedResults, itemCount)   {
             //Geonames.find(function (err, geonames) {
             if (err)
                 res.send(err);
@@ -72,4 +73,4 @@ app.use('/api', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Listening on port %d in %s mode', port, app.settings.env);
+console.log('Listening on port %d in %s mode, mongodb:', port, app.settings.env, mongodbUri);

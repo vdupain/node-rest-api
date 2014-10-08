@@ -3,12 +3,11 @@ var mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/";
 mongoose.connect(mongodbUri);
 var Geonames = require('./app/models/geonames');
 var gstream = require('geonames-stream');
-var request = require('request');
 var through = require('through2');
+var fs = require('fs');
 
-
-request.get( 'http://download.geonames.org/export/dump/FR.zip' )
-    .pipe( gstream.pipeline )
+fs.createReadStream( 'FR.txt' )
+    .pipe( gstream.parser )
     .pipe( through.obj( function( data, enc, next ){
         var geonames = new Geonames({
             geonameid: data._id,
@@ -35,7 +34,6 @@ request.get( 'http://download.geonames.org/export/dump/FR.zip' )
             if (err)
                 console.log('Error save geonames:', err);
         });
-        console.log(geonames);
+        //console.log(geonames);
         next();
     }));
-
