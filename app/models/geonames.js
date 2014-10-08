@@ -1,4 +1,6 @@
 var mongoose     = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
+
 var Schema       = mongoose.Schema;
 
 var GeonamesSchema   = new Schema({
@@ -28,5 +30,7 @@ GeonamesSchema.index ({
     asciiname : 1,
     name : 1
 });
+
+GeonamesSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Geonames', GeonamesSchema);

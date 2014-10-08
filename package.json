@@ -1,12 +1,18 @@
 {
-	"name": "node-items-api",
+    "name": "node-rest-api",
     "version": "0.0.1",
+    "private": "true",
     "description": "",
 	"main": "server.js",
 	"dependencies": {
 		"express": "~4.0.0",
+        "body-parser": "~1.0.1",
 		"morgan": "~1.0.0",
 		"mongoose": "~3.6.13",
-		"body-parser": "~1.0.1"
+        "mongoose-paginate": "~3.1.1",
+        "moment": "~2.8.3",
+        "geonames-stream": "~0.0.4",
+        "through2": "~0.6.2",
+        "request": "~2.45.0"
 	}
 }
