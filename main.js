@@ -4,7 +4,7 @@ mongoose.connect(mongodbUri);
 var carrier = require('carrier');
 var Geonames = require('./app/models/geonames');
 var fs = require('fs');
-var inStream = fs.createReadStream('FR.txt', {flags: 'r'});
+var inStream = fs.createReadStream('allCountries.txt', {flags: 'r'});
 
 carrier.carry(inStream)
     .on('line', function (line) {

@@ -38,17 +38,28 @@ router.get('/', function (req, res) {
     res.json({ message: 'Welcome to our API!' });
 });
 
+router.route('/geonames/count')
+
+    .get(function (req, res) {
+            Geonames.count({}, function (err, count) {
+            if (err)
+                res.send(err);
+            res.json(count);
+        });
+    });
+
 router.route('/geonames')
 
     // get all the geonames (accessed at GET http://localhost:8080/api/geonames)
     .get(function (req, res) {
         var page = req.param('page') || 1
         var limit = req.param('limit') || 10
-            Geonames.paginate({}, limit, page, function(err, pageCount, paginatedResults, itemCount)   {
-            //Geonames.find(function (err, geonames) {
+            Geonames.paginate({}, page, limit, function(err, pageCount, paginatedResults, itemCount)   {
+                Geonames
             if (err)
                 res.send(err);
-
+                console.log('Pages:', pageCount);
+                console.log('itemCount:', itemCount);
             res.json(paginatedResults);
         });
     });
