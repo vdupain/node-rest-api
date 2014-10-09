@@ -19,17 +19,16 @@ carrier.carry(inStream)
             feature_class: fields[6],
             feature_code: fields[7],
             country_code: fields[8],
-            alternatenames: fields[9],
-            cc2: fields[10],
-            admin1: fields[11],
-            admin2: fields[12],
-            admin3: fields[13],
-            admin4: fields[14],
-            population: fields[15],
-            elevation: fields[16],
-            dem: fields[17],
-            timezone: fields[18],
-            modification_date: fields[19]
+            cc2: fields[9],
+            admin1: fields[10],
+            admin2: fields[11],
+            admin3: fields[12],
+            admin4: fields[13],
+            population: fields[14],
+            elevation: fields[15],
+            dem: fields[16],
+            timezone: fields[17],
+            modification_date: fields[18]
         });
         console.log(geonames);
         geonames.save(function (err) {
