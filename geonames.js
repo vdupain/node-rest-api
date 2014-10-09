@@ -79,7 +79,7 @@ router.route('/geonames/:geonames_id')
 
 
 // REGISTER OUR ROUTES -------------------------------
-app.use('/api', router);
+app.use('/node-api', router);
 
 // START THE SERVER
 // =============================================================================
